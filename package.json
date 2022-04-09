@@ -4,7 +4,7 @@
   "description": "Allow logged in users to update their password.",
   "strapi": {
     "displayName": "Update Password",
-    "name": "updatePassword",
+    "name": "update-password",
     "description": "Allow logged in users to update their password.",
     "kind": "plugin"
   },
