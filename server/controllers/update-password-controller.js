@@ -3,12 +3,12 @@
 const sanitizeUser = require('../helpers/sanitize-user');
 
 module.exports = {
-  change: async ctx => {
+  update: async ctx => {
     const { auth, user } = ctx.state;
 
-    strapi.plugin('change-password')
-      .service('change-password')
-      .change(user.id, ctx.request.body.newPassword);
+    strapi.plugin('update-password')
+      .service('update-password')
+      .update(user.id, ctx.request.body.newPassword);
 
     // Return new jwt token
     ctx.send({

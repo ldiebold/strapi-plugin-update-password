@@ -1,6 +1,6 @@
 'use strict';
-const validateChangePasswordRequest = require('./validate-change-password-request');
+const validateUpdatePasswordRequest = require('./validate-update-password-request');
 
 module.exports = {
-  'validate-change-password-request': validateChangePasswordRequest
+  'validate-update-password-request': validateUpdatePasswordRequest
 };

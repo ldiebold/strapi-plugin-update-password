@@ -1,7 +1,7 @@
 'use strict';
 
-const changePasswordController = require('./change-password-controller');
+const updatePasswordController = require('./update-password-controller');
 
 module.exports = {
-  changePasswordController,
+  updatePasswordController,
 };

@@ -1,7 +1,7 @@
 'use strict';
 
-const changePassword = require('./change-password');
+const updatePassword = require('./update-password');
 
 module.exports = {
-  'change-password': changePassword,
+  'update-password': updatePassword,
 };

@@ -5,9 +5,9 @@ module.exports = {
       {
         method: 'PUT',
         path: '/',
-        handler: 'changePasswordController.change',
+        handler: 'updatePasswordController.update',
         config: {
-          middlewares: ['plugin::change-password.validate-change-password-request'],
+          middlewares: ['plugin::update-password.validate-update-password-request'],
           policies: [],
         },
       },
