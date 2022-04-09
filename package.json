@@ -1,0 +1,36 @@
+{
+  "name": "strapi-plugin-update-password",
+  "version": "0.0.1",
+  "description": "Allow logged in users to update their password.",
+  "strapi": {
+    "displayName": "Update Password",
+    "name": "updatePassword",
+    "description": "Allow logged in users to update their password.",
+    "kind": "plugin"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/ldiebold/strapi-plugin-update-password.git"
+  },
+  "author": {
+    "name": "Luke Diebold",
+    "email": "luke@ldiebold.com"
+  },
+  "maintainers": [
+    {
+      "name": "Luke Diebold",
+      "email": "luke@ldiebold.com"
+    }
+  ],
+  "scripts": {
+    "test": "echo \"no tests yet\""
+  },
+  "peerDependencies": {
+    "@strapi/strapi": "^4.0.0"
+  },
+  "engines": {
+    "node": ">=12.22.0 <=16.x.x",
+    "npm": ">=6.0.0"
+  },
+  "license": "MIT"
+}
