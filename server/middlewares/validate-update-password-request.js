@@ -84,7 +84,6 @@ async function validateOriginalPassword (originalPassword, user) {
 module.exports = (config) => {
   return async (ctx, next) => {
     const params = ctx.request.body;
-
     try {
       const user = await findUserOrFail(ctx, config.identifier);
       await validateOriginalPassword(params.password, user);
@@ -93,7 +92,9 @@ module.exports = (config) => {
       validatePasswordConfirmation(params.confirmPassword);
       validatePasswordsMatch(params.newPassword, params.confirmPassword);
     } catch (error) {
-      return ctx.badRequest(null, error.formattedForResponse);
+      return ctx.badRequest(null, error.formattedForResponse, {
+        message: 'my error message'
+      });
     }
 
     await next();
