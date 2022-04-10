@@ -26,7 +26,8 @@
     "test": "echo \"no tests yet\""
   },
   "peerDependencies": {
-    "@strapi/strapi": "^4.0.0"
+    "@strapi/strapi": "^4.0.0",
+    "http-errors": "^2.0.0"
   },
   "engines": {
     "node": ">=12.22.0 <=16.x.x",

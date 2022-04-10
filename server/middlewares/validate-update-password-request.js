@@ -1,47 +1,47 @@
 'use strict';
 
-const formatError = require('../utils/formatError');
+const formatValidationError = require('../utils/formatValidationError');
 const getPluginService = require('../utils/getPluginService');
 
-function InvalidException (id, message) {
+function ValidationException (message, path) {
   this.message = message;
-  this.id = id;
-  this.formattedForResponse = formatError({ id, message });
-  this.name = 'InvalidException';
+  this.name = 'ValidationError';
+  this.path = path;
+  this.formattedForResponse = formatValidationError(message, 'ValidationError', path);
 }
 
 function validatePassword (password) {
   if (!password) {
-    throw new InvalidException(
-      'Auth.form.error.password.provide',
+    throw new ValidationException(
       'The "password" field is required.',
+      ['password'],
     );
   }
 }
 
 function validateNewPassword (newPassword) {
   if (!newPassword) {
-    throw new InvalidException(
-      'Auth.form.error.password.provide',
+    throw new ValidationException(
       'The "new password" field is required.',
+      ['newPassword'],
     );
   }
 }
 
 function validatePasswordConfirmation (passwordConfirmation) {
   if (!passwordConfirmation) {
-    throw new InvalidException(
-      'Auth.form.error.password.provide',
+    throw new ValidationException(
       'The "password confirmation" field is required.',
+      ['passwordConfirmation'],
     );
   }
 }
 
 function validatePasswordsMatch (newPassword, confirmPassword) {
   if (newPassword !== confirmPassword) {
-    throw new InvalidException(
-      'Auth.form.error.password.matching',
+    throw new ValidationException(
       'New Passwords do not match.',
+      ['passwordConfirmation'],
     );
   }
 }
@@ -60,9 +60,9 @@ async function findUserOrFail (ctx) {
   if(user) {
     return user;
   } else {
-    throw new InvalidException(
-      'Auth.error.user.missing',
+    throw new ValidationException(
       'Unable to identify the user.',
+      [],
     );
   }
 }
@@ -74,9 +74,9 @@ async function validateOriginalPassword (originalPassword, user) {
   );
 
   if (!validPassword) {
-    throw new InvalidException(
-      'Auth.form.error.invalid',
+    throw new ValidationException(
       'Identifier or password invalid.',
+      ['password'],
     );
   }
 }
@@ -92,9 +92,18 @@ module.exports = (config) => {
       validatePasswordConfirmation(params.confirmPassword);
       validatePasswordsMatch(params.newPassword, params.confirmPassword);
     } catch (error) {
-      return ctx.badRequest(null, error.formattedForResponse, {
-        message: 'my error message'
-      });
+      ctx.response.status = 400
+      return ctx.response.body = {
+        data: null,
+        error: {
+          details: {
+            errors: error.formattedForResponse
+          },
+          message: 'ValidationError',
+          name: 'ValidationError',
+          status: 400
+        }
+      }
     }
 
     await next();
